@@ -33,11 +33,13 @@ func getRequestHeaders(r *http.Request) http.Header {
 }
 
 func getOrigin(r *http.Request) string {
-	origin := r.Header.Get("X-Forwarded-For")
-	if origin == "" {
-		origin = r.RemoteAddr
+	forwardedFor := r.Header.Get("X-Forwarded-For")
+	if forwardedFor == "" {
+		return r.RemoteAddr
 	}
-	return origin
+	return strings.FieldsFunc(forwardedFor, func(r rune) bool {
+		return r == ' ' || r == ','
+	})[0]
 }
 
 func getURL(r *http.Request) *url.URL {
