@@ -1028,7 +1028,7 @@ func (h *HTTPBin) Hostname(w http.ResponseWriter, r *http.Request) {
 
 func (h *HTTPBin) WebsocketEcho(w http.ResponseWriter, r *http.Request) {
 	c, err := websocket.Accept(w, r, &websocket.AcceptOptions{
-		Subprotocols:       []string{"echo"},
+		// Subprotocols:       []string{"echo"},
 		InsecureSkipVerify: true,
 	})
 	if err != nil {
@@ -1036,10 +1036,10 @@ func (h *HTTPBin) WebsocketEcho(w http.ResponseWriter, r *http.Request) {
 	}
 	defer c.Close(websocket.StatusInternalError, "the sky is falling")
 
-	if c.Subprotocol() != "echo" {
-		c.Close(websocket.StatusPolicyViolation, "client must speak the echo subprotocol")
-		return
-	}
+	// if c.Subprotocol() != "echo" {
+	// 	c.Close(websocket.StatusPolicyViolation, "client must speak the echo subprotocol")
+	// 	return
+	// }
 
 	l := rate.NewLimiter(rate.Every(time.Millisecond*100), 10)
 	for {

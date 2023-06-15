@@ -200,7 +200,7 @@ func (h *HTTPBin) Handler() http.Handler {
 	mux.HandleFunc("/base64/", h.Base64)
 
 	// websocket specific endpoints
-	mux.HandleFunc("/wscho", h.WebsocketEcho)
+	mux.HandleFunc("/wsecho", h.WebsocketEcho)
 
 	// existing httpbin endpoints that we do not support
 	mux.HandleFunc("/brotli", notImplementedHandler)
