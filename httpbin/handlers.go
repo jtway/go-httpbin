@@ -871,8 +871,8 @@ func handleBytes(w http.ResponseWriter, r *http.Request, streaming bool) {
 		return
 	}
 
-	if numBytes > 100*1024 {
-		numBytes = 100 * 1024
+	if numBytes > 100*1024*1024 {
+		numBytes = 100 * 1024 * 1024
 	}
 
 	var chunkSize int
@@ -886,7 +886,7 @@ func handleBytes(w http.ResponseWriter, r *http.Request, streaming bool) {
 				return
 			}
 		} else {
-			chunkSize = 10 * 1024
+			chunkSize = 100 * 1024
 		}
 
 		write = func() func(chunk []byte) {
